@@ -88,21 +88,25 @@ void player_movement(int p_pons[], int *grid_pons[])
         {
             if (p_pons[0] > 0)
                 p_pons[0] -=1;
+                break;
         }
     case 'D':
         {
             if (p_pons[0] < grid_pons[1][0])
                 p_pons[0] +=1;
+                break;
         }
     case 'W':
         {
             if (p_pons[1] < grid_pons[1][1])
                 p_pons[1] += 1;
+                break;
         }
     case 'S':
         {
             if (p_pons[1] > 0)
                 p_pons[1] -=1;
+                break;
         }
     }
 
