@@ -3,39 +3,40 @@
 /*| at 07.12.23 19:00 Msc Time                         |*/
 /*|----------------------------------------------------|*/
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <time.h>
 
 
-int *player_movement(int p_pons[], int *grid_pons[]);
-int grid_generator(int p_pons[], int *monsters_pons[], int *blocks_pons[]);
-int **monster_generator(int *grid_pons[]);
-int **block_generator(int *grid_pons[]);
+// int *player_movement(int p_pons[], int *grid_pons[]);
+// int grid_generator(int p_pons[], int *monsters_pons[], int *blocks_pons[]);
+// int **monster_generator(int *grid_pons[]);
+// int **block_generator(int *grid_pons[]);
 
 
-int main(int argc, char const *argv[])
+int main()
+// (int argc, char const *argv[])
 {
-    int p_pons[] = {0, 0};
+    // int p_pons[] = {0, 0};
 
-    int lower_left_corner[] = {0, 0};
-    int upper_right_corner[] = {15, 15};
+    // int lower_left_corner[] = {0, 0};
+    // int upper_right_corner[] = {15, 15};
 
-    int **monster_pons;
-    int **block_pons;
+    // int **monster_pons;
+    // int **block_pons;
 
 
-    int *grid_pons[] = {lower_left_corner, upper_right_corner}; //add functions
-    monster_pons = monster_generator(grid_pons); //add function
-    block_pons = block_generator(grid_pons); //add function
-    grid_generator(p_pons, monster_pons, block_pons);
+    // int *grid_pons[] = {lower_left_corner, upper_right_corner}; //add functions
+    // monster_pons = monster_generator(grid_pons); //add function
+    // block_pons = block_generator(grid_pons); //add function
+    // grid_generator(p_pons, monster_pons, block_pons);
     
-    while(1) 
-    {
-        player_movement(p_pons, grid_pons);
-    }
+    // while(1) 
+    // {
+    //     player_movement(p_pons, grid_pons);
+    // }
+
 
     return(0);
 }
