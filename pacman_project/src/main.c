@@ -1,119 +1,72 @@
-/*|----------------------------------------------------|*/
-/*| created by: shbshka                                |*/
-/*| at 07.12.23 19:00 Msc Time                         |*/
-/*|----------------------------------------------------|*/
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
-#include <time.h>
+#include <string.h>
+// #include <ncurses.h>
+#include <conio.h>
+#include "./modules/map_gen.h"
+#include "./modules/player_action.h"
 
 
-// int *player_movement(int p_pons[], int *grid_pons[]);
-// int grid_generator(int p_pons[], int *monsters_pons[], int *blocks_pons[]);
-// int **monster_generator(int *grid_pons[]);
-// int **block_generator(int *grid_pons[]);
+int px = 1, py = 1;
+char map[9][45];
+char action;
+int gold_total = 0, gold_count = 0;
+int lvl = 0;
 
 
-int main()
-// (int argc, char const *argv[])
+// int main(int lvl)
+// {
+//     int x, y;
+//     read_map(lvl);
+//     do {
+//         // cleare buffer
+//         clear();
+
+//         // check movements
+//         check_movement(action, &px, &py);
+
+//         // show screen
+//         initscr();
+//         for (int k = 0; k < 9; k++) {
+//             for (int l = 0; l < 45; l++) {
+//                 printw("%c", map[k][l]);
+//             }
+//         }
+//         printw("Level %d. Gold: %d/%d", lvl, gold_count, gold_total);
+//     } while (action = getch());
+//     endwin();
+// }
+
+
+int main(int lvl)
 {
-    // int p_pons[] = {0, 0};
+    int x, y;
+    read_map(lvl, &py, &px, map, &gold_total);
+    do {
+        // cleare buffer
+        system("cls"); 
 
-    // int lower_left_corner[] = {0, 0};
-    // int upper_right_corner[] = {15, 15};
+        // check movements
+        check_movement(action, map, &px, &py, &gold_count);
 
-    // int **monster_pons;
-    // int **block_pons;
-
-
-    // int *grid_pons[] = {lower_left_corner, upper_right_corner}; //add functions
-    // monster_pons = monster_generator(grid_pons); //add function
-    // block_pons = block_generator(grid_pons); //add function
-    // grid_generator(p_pons, monster_pons, block_pons);
-    
-    // while(1) 
-    // {
-    //     player_movement(p_pons, grid_pons);
-    // }
-
-
-    return(0);
-}
-
-
-int **monster_generator(int *grid_pons[])
-{
-/*
-* ТЗ: написать генерацию монстра в кол-ве от 1 до 5 штук
-*/
-}
-
-
-int **block_generator(int *grid_pons[])
-{
-/*
-* ТЗ: написать генерацию блоков и стен так, чтобы получился лабиринт (это трудно, но возможно)
-* для начала достаточно рандомно расставленных блоков
-*/
-}
-
-
-int grid_generator(int p_pons[], int *monsters_pons[], int *blocks_pons[])
-{
-/*
-* ТЗ: написать генерацию поля, принимающую на вход позиции игрока {x, y},
-* позиции монстров {{x, y}, {x, y}...}, позиции блоков {{x, y}, {x, y}...},
-* преобразующую это все в красивый консольный формат
-*/
-}
-
-
-int *player_movement(int p_pons[], int *grid_pons[])
-
-/* 
-* Reads the movement from input and directs its
-* handling to other functions
-*/
-
-{
-    char move;
-
-    /* 
-    * a whitespace before %c eliminates 
-    * the previous input trace 
-    */
-
-    scanf(" %c", &move);
-    move = toupper(move);
-
-    switch(move)
-    {
-    case 'A':
-        {
-            if (p_pons[0] > 0)
-                p_pons[0] -=1;
-                break;
+        // show screen
+        if (gold_count == gold_total) {
+            cprintf("You win! Press Ctrl+C to exit or press Space for next level.");
+            char key;
+            while (key = getch()) {
+                if (key==' ') {
+                    system("cls"); 
+                    lvl++;
+                    read_map(lvl, &py, &px, map, &gold_total);
+                    break;
+                }
+            }
         }
-    case 'D':
-        {
-            if (p_pons[0] < grid_pons[1][0])
-                p_pons[0] +=1;
-                break;
+        for (int k = 0; k < 9; k++) {
+            for (int l = 0; l < 45; l++) {
+                cprintf("%c", map[k][l]);
+            }
         }
-    case 'W':
-        {
-            if (p_pons[1] < grid_pons[1][1])
-                p_pons[1] += 1;
-                break;
-        }
-    case 'S':
-        {
-            if (p_pons[1] > 0)
-                p_pons[1] -=1;
-                break;
-        }
-    }
-
-    return(p_pons);
+        cprintf("Level %d. Gold: %d/%d", lvl, gold_count, gold_total);
+    } while (action = getch());
 }
