@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 // #include <ncurses.h>
 #include <conio.h>
 #include "./modules/map_gen.h"
-#include "./modules/player_action.h"
+#include "./modules/player.h"
 
+#define HEIGHT 9
+#define WIDTH 45
 
-int px = 1, py = 1;
-char map[9][45];
+char map[HEIGHT][WIDTH];
 char action;
 int gold_total = 0, gold_count = 0;
 int lvl = 0;
@@ -27,8 +29,8 @@ int lvl = 0;
 
 //         // show screen
 //         initscr();
-//         for (int k = 0; k < 9; k++) {
-//             for (int l = 0; l < 45; l++) {
+//         for (int k = 0; k < HEIGHT; k++) {
+//             for (int l = 0; l < WIDTH; l++) {
 //                 printw("%c", map[k][l]);
 //             }
 //         }
@@ -41,13 +43,14 @@ int lvl = 0;
 int main(int lvl)
 {
     int x, y;
-    read_map(lvl, &py, &px, map, &gold_total);
+    player_coord player = {1, 1};
+    read_map(lvl, &player, map, &gold_total);
     do {
         // cleare buffer
         system("cls"); 
 
         // check movements
-        check_movement(action, map, &px, &py, &gold_count);
+        check_movement(action, map, &(player.py), &(player.px), &gold_count);
 
         // show screen
         if (gold_count == gold_total) {
@@ -57,13 +60,13 @@ int main(int lvl)
                 if (key==' ') {
                     system("cls"); 
                     lvl++;
-                    read_map(lvl, &py, &px, map, &gold_total);
+                    read_map(lvl, &player, map, &gold_total);
                     break;
                 }
             }
         }
-        for (int k = 0; k < 9; k++) {
-            for (int l = 0; l < 45; l++) {
+        for (int k = 0; k < HEIGHT; k++) {
+            for (int l = 0; l < WIDTH; l++) {
                 cprintf("%c", map[k][l]);
             }
         }

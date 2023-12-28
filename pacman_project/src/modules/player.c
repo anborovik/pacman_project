@@ -1,7 +1,24 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define HEIGHT 9
+#define WIDTH 45
+
+typedef struct {
+    int px;
+    int py;
+} player_coord;
 
 
-void check_movement(char action, char (* map)[45], int * px, int * py, int * gold_count)
+void generate_player_coord(player_coord * player)
+{
+    srand(time(NULL));
+    player->px = rand() / WIDTH;
+    player->py = rand() / HEIGHT;
+}
+
+void check_movement(char action, char (* map)[WIDTH], int * px, int * py, int * gold_count)
 {
     if ((action == 'w')&&(map[*py-1][*px]!='#')) {
             map[*py][*px] = ' ';
