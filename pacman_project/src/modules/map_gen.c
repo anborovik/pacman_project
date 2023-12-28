@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "player.h"
-
-#define HEIGHT 9
-#define WIDTH 45
+#include "const.h"
 
 
 char result[100] = {'0'};
@@ -13,7 +11,7 @@ char * generate_filename(int lvl)
     const char * filename = "./maps/lvl_";
     const char * ext = ".txt";
     char lvl_name[3] = {'0'};
-    itoa(lvl, lvl_name, 10);
+    sprintf(lvl_name, "%d", lvl);
     strcpy(result, filename);
     strcat(result, lvl_name);
     strcat(result, ext);
@@ -45,10 +43,9 @@ void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_to
                 i++;
             }
         }
-        // while (map[player->py][player->px] != " ") {
-        //     generate_player_coord(player);
-        // }
-        printf("px = %d py = %d\n", player->px, player->py);
+        while (map[player->py][player->px] != ' ') {
+            generate_player_coord(player);
+        }
         map[player->py][player->px] = '@';
         fclose(lvl_map);
     }

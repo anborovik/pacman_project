@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "const.h"
 
-#define HEIGHT 9
-#define WIDTH 45
 
 typedef struct {
     int px;
@@ -14,8 +13,8 @@ typedef struct {
 void generate_player_coord(player_coord * player)
 {
     srand(time(NULL));
-    player->px = rand() / WIDTH;
-    player->py = rand() / HEIGHT;
+    player->px = rand() % WIDTH;
+    player->py = rand() % HEIGHT;
 }
 
 void check_movement(char action, char (* map)[WIDTH], int * px, int * py, int * gold_count)
