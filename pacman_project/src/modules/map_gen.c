@@ -18,7 +18,7 @@ char * generate_filename(int lvl)
     return result;
 }
 
-void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_total)
+void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_total, int new_lvl)
 {
     int i = 0, j = 0;
     
@@ -43,8 +43,10 @@ void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_to
                 i++;
             }
         }
-        while (map[player->py][player->px] != ' ') {
-            generate_player_coord(player);
+        if (new_lvl == 1) {
+            while (map[player->py][player->px] != ' ') {
+                generate_player_coord(player);
+            }
         }
         map[player->py][player->px] = '@';
         fclose(lvl_map);

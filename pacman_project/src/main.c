@@ -20,13 +20,13 @@ int main(int lvl)
 {
     int x, y;
     player_coord player = {0, 0};
-    read_map(lvl, &player, map, &gold_total);
+    read_map(lvl, &player, map, &gold_total, 1);
     do {
         // cleare buffer
         clear();
 
         // check movements
-        check_movement(action, map, &(player.py), &(player.px), &gold_count);
+        check_movement(action, map, &player, &gold_count);
 
         // show screen
         initscr();
@@ -39,7 +39,7 @@ int main(int lvl)
                     lvl++;
                     player.px = 0;
                     player.py = 0;
-                    read_map(lvl, &player, map, &gold_total);
+                    read_map(lvl, &player, map, &gold_total, 1);
                     break;
                 }
             }
@@ -49,8 +49,6 @@ int main(int lvl)
                 printw("%c", map[k][l]);
             }
         }
-
-        printw("px = %d py = %d\n", player.px, player.py);
         printw("Level %d. Gold: %d/%d", lvl, gold_count, gold_total);
     } while (action = getch());
     endwin();
