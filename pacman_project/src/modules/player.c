@@ -2,13 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "const.h"
-
-
-typedef struct {
-    int px;
-    int py;
-} player_coord;
-
+#include "monster.h"
 
 void generate_player_coord(player_coord * player)
 {
@@ -17,7 +11,19 @@ void generate_player_coord(player_coord * player)
     player->py = rand() % HEIGHT;
 }
 
-void check_movement(char action, char (* map)[WIDTH], player_coord * player, int * gold_count)
+int check_fail(player_coord * player, monster_coord monsters[])
+{
+    for (int i = 0; i < MONST_COUNT; i++) {
+        if (
+            (monsters[i].mx - player->px == 0)&&(monsters[i].my - player->py == 0)
+        ) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int check_movement(char action, char (* map)[WIDTH], player_coord * player, int * gold_count, monster_coord monsters[])
 {
     if ((action == 'w')&&(map[player->py-1][player->px]!='#')) {
             map[player->py][player->px] = ' ';
@@ -36,4 +42,7 @@ void check_movement(char action, char (* map)[WIDTH], player_coord * player, int
             *gold_count += 100;
         }
         map[player->py][player->px] = '@';
+        monster_movement(monsters, player, map);
+        int result = check_fail(player, monsters);
+        return result;
 }

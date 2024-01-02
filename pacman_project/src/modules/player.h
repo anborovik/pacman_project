@@ -1,13 +1,10 @@
 #ifndef _player_h
 #define _player_h
 
-typedef struct {
-    int px;
-    int py;
-} player_coord;
+#include "const.h"
 
 void generate_player_coord(player_coord * player);
 
-void check_movement(char action, char (* map)[45], player_coord * player, int * gold_count);
+int check_movement(char action, char (* map)[WIDTH], player_coord * player, int * gold_count, monster_coord monsters[]);
 
 #endif

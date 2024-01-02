@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "player.h"
+#include "monster.h"
 #include "const.h"
 
 
@@ -18,10 +19,15 @@ char * generate_filename(int lvl)
     return result;
 }
 
-void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_total, int new_lvl)
+void read_map(
+    int lvl,
+    player_coord * player,
+    char (* map)[WIDTH],
+    int * gold_total,
+    monster_coord * monster_list
+)
 {
     int i = 0, j = 0;
-    
     char * filename = generate_filename(lvl);
     char c;
     FILE * lvl_map;
@@ -43,12 +49,16 @@ void read_map(int lvl, player_coord * player, char (* map)[WIDTH], int * gold_to
                 i++;
             }
         }
-        if (new_lvl == 1) {
-            while (map[player->py][player->px] != ' ') {
-                generate_player_coord(player);
-            }
+        while (map[player->py][player->px] != ' ') {
+            generate_player_coord(player);
         }
         map[player->py][player->px] = '@';
+        for (int i = 0; i < MONST_COUNT; i++) {
+            while (map[monster_list[i].my][monster_list[i].mx] != ' ') {
+                generate_monsters_coord(monster_list + i);
+            }
+            map[monster_list[i].my][monster_list[i].mx] = '&';
+        }
         fclose(lvl_map);
     }
 }
