@@ -9,7 +9,7 @@ char result[100] = {'0'};
 
 char * generate_filename(int lvl)
 {
-    const char * filename = "./maps/lvl_";
+    const char * filename = "./src/maps/lvl_";
     const char * ext = ".txt";
     char lvl_name[3] = {'0'};
     sprintf(lvl_name, "%d", lvl);

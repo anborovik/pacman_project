@@ -3,10 +3,10 @@
 #include <string.h>
 #include <time.h>
 #include <ncurses.h>
-#include "./modules/map_gen.h"
-#include "./modules/player.h"
-#include "./modules/monster.h"
-#include "./modules/const.h"
+#include "map_gen.h"
+#include "player.h"
+#include "monster.h"
+#include "const.h"
 
 
 char map[HEIGHT][WIDTH];
